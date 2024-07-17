@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: core-banking
+  profiles:
+    active: dev
+    
+server:
+  port: 8002
+      
+# Take the span id and trace id from the Mapped Diagnostic Context (MDC) and
+# put them into the log message.
+logging:
+  file:
+    path: './logs/${spring.application.name}'
+    name: ${logging.file.path}.log
+  pattern:
+    console: "[%d] [%t] %-5level [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %-32.32logger{36} - %msg%n"
+    file: "[%d] [%t] %-5level [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %-32.32logger{36} - %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
